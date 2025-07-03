@@ -30,8 +30,8 @@ class ProgramareController extends Controller
             $m->to('clinica@exemplu.md')->subject('Nouă programare');
         });
 
-        // Trimite email la client
-        if ($validated['email']) {
+        // Trimite email la client, dacă are email
+        if (!empty($validated['email'])) {
             Mail::raw("Salut, programarea ta a fost înregistrată cu succes!", function($m) use ($validated) {
                 $m->to($validated['email'])->subject('Confirmare programare');
             });
