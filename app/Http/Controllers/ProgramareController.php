@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Programare;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ProgramareNoua;
+use App\Mail\ConfirmareProgramare;
 
 class ProgramareController extends Controller
 {
@@ -33,13 +35,13 @@ class ProgramareController extends Controller
         $programare = Programare::create($validated);
 
         // Trimite email la clinica (admin)
-        Mail::to('clinica@exemplu.md')
-            ->send(new \App\Mail\ProgramareNoua($programare));
+        Mail::to('ghidion.adrian@elev.cihcahul.md')
+            ->send(new ProgramareNoua($programare));
 
         // Trimite email la client (dacă are email)
         if ($validated['email']) {
             Mail::to($validated['email'])
-                ->send(new \App\Mail\ConfirmareProgramare($programare));
+                ->send(new ConfirmareProgramare($programare));
         }
 
         return response()->json(['message' => 'Programare salvată și email trimis!'], 201);

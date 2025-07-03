@@ -12,13 +12,11 @@ class ConfirmareProgramare extends Mailable
 
     public $programare;
 
-    // Constructorul primește programarea
     public function __construct($programare)
     {
         $this->programare = $programare;
     }
 
-    // Build: subiect și template Blade pentru email
     public function build()
     {
         return $this->subject('Confirmare programare')

@@ -1,4 +1,4 @@
-
+{{-- resources/views/emails/confirmare-programare.blade.php --}}
 @component('mail::message')
 # Programarea ta la Clinica Mobila
 
@@ -13,7 +13,7 @@ Programarea ta a fost înregistrată cu succes.
 
 Te vom contacta telefonic pentru confirmare. Mulțumim!
 
-@component('mail::button', ['url' => 'https://clinicamobila.md'])
+@component('mail::button', ['url' => 'https://emanuel-cioburciu.md'])
 Vezi clinica noastră
 @endcomponent
 
