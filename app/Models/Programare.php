@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Programare extends Model
 {
     protected $fillable = [
-        'nume', 'prenume', 'specialitate', 'medic', 'data', 'ora', 'telefon', 'email', 'motiv', 'mesaj'
+        'nume',
+        'prenume',
+        'specialitate',
+        'medic',
+        'data',
+        'ora',
+        'telefon',
+        'email',
+        'motiv',
+        'mesaj',
     ];
 }
