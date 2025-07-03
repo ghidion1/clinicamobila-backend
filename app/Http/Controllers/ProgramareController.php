@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Mail;
 
 class ProgramareController extends Controller
 {
+    // Returnează lista de programări (toate)
+    public function index()
+    {
+        return response()->json(Programare::orderBy('created_at', 'desc')->get());
+    }
+
+    // Salvează o nouă programare
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -25,16 +32,14 @@ class ProgramareController extends Controller
 
         $programare = Programare::create($validated);
 
-        // Trimite email la clinica
-        Mail::raw("A fost făcută o programare:\n\n" . print_r($validated, true), function($m) {
-            $m->to('clinica@exemplu.md')->subject('Nouă programare');
-        });
+        // Trimite email la clinica (admin)
+        Mail::to('clinica@exemplu.md')
+            ->send(new \App\Mail\ProgramareNoua($programare));
 
-        // Trimite email la client
+        // Trimite email la client (dacă are email)
         if ($validated['email']) {
-            Mail::raw("Salut, programarea ta a fost înregistrată cu succes!", function($m) use ($validated) {
-                $m->to($validated['email'])->subject('Confirmare programare');
-            });
+            Mail::to($validated['email'])
+                ->send(new \App\Mail\ConfirmareProgramare($programare));
         }
 
         return response()->json(['message' => 'Programare salvată și email trimis!'], 201);
