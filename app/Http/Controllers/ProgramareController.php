@@ -35,14 +35,13 @@ class ProgramareController extends Controller
         $programare = Programare::create($validated);
 
         // Trimite email la clinica (admin)
-        Mail::to('ghidion.adrian@elev.cihcahul.md')
-            ->send(new ProgramareNoua($programare));
+       if ($validated['email']) {
+    Mail::to($validated['email'])->send(new ConfirmareProgramare($programare));
+}
 
         // Trimite email la client (dacă are email)
-        if ($validated['email']) {
-            Mail::to($validated['email'])
-                ->send(new ConfirmareProgramare($programare));
-        }
+       // Pentru clinică:
+Mail::to($validated['email'])->send(new ConfirmareProgramare($programare));
 
         return response()->json(['message' => 'Programare salvată și email trimis!'], 201);
     }
