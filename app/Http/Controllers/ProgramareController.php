@@ -44,12 +44,6 @@ public function lista()
               ->subject('Nouă programare');
         }
     );
-    public function lista()
-{
-    $programari = \App\Models\Programare::orderBy('data', 'desc')->get();
-    return view('admin.programari', compact('programari'));
-}
-
     // EMAIL SIMPLU CĂTRE CLIENT
     if ($programare->email) {
         Mail::raw(
