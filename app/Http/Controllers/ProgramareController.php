@@ -11,15 +11,13 @@ use App\Mail\ConfirmareProgramare;
 class ProgramareController extends Controller
 {
     // Returnează lista de programări (toate)
-    public function index()
-    {
-        return response()->json(Programare::orderBy('created_at', 'desc')->get());
-    }
+  
 public function lista()
 {
     $programari = \App\Models\Programare::orderBy('data', 'desc')->get();
     return view('admin.programari', compact('programari'));
 }
+
   public function store(Request $request)
 {
     $validated = $request->validate([
