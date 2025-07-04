@@ -15,7 +15,11 @@ class ProgramareController extends Controller
     {
         return response()->json(Programare::orderBy('created_at', 'desc')->get());
     }
-
+public function lista()
+{
+    $programari = \App\Models\Programare::orderBy('data', 'desc')->get();
+    return view('admin.programari', compact('programari'));
+}
   public function store(Request $request)
 {
     $validated = $request->validate([
@@ -38,7 +42,7 @@ class ProgramareController extends Controller
         "A fost făcută o programare:\n" .
         "Nume: {$programare->nume}\nPrenume: {$programare->prenume}\nSpecialitate: {$programare->specialitate}\nMedic: {$programare->medic}\nData: {$programare->data} Ora: {$programare->ora}\nTelefon: {$programare->telefon}\nEmail: {$programare->email}\nMotiv: {$programare->motiv}\nMesaj: {$programare->mesaj}",
         function($m) {
-            $m->to('clinica@exemplu.md')
+            $m->to('ghidion.adrian@elev.cihcahul.md')
               ->subject('Nouă programare');
         }
     );
